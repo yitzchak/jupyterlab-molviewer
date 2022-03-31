@@ -17,17 +17,22 @@ const FILE_TYPES = [{
   mimeTypes: ['chemical/x-cif'],
   extensions: ['.cif']
 }, {
+  displayName: 'Macromolecular Crystallographic Information File',
+  name: 'mmcif',
+  mimeTypes: ['chemical/x-mmcif'],
+  extensions: ['.mmcif']
+}, {
   displayName: 'Tripos Mol2',
   name: 'mol2',
   extensions: ['.mol2']
 }, {
-  displayName: 'Protein Data Bank',
+  displayName: 'Protein Data Bank File',
   name: 'pdb',
   mimeTypes: ['chemical/x-pdb'],
-  extensions: ['.pdb']
+  extensions: ['.pdb', '.pqr', '.ent']
 }]
 
-const FACTORY = 'Mol';
+const FACTORY = 'Molecule Viewer';
 
 const plugin: JupyterFrontEndPlugin<IMolTracker> = {
   activate,

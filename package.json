@@ -1,6 +1,6 @@
 {
   "name": "jupyterlab-molviewer",
-  "version": "0.1.23",
+  "version": "0.1.29",
   "description": "Molecule viewer for JupyterLab using ngl",
   "keywords": [
     "jupyter",

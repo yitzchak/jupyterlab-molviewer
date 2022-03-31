@@ -85,9 +85,13 @@ export class MolViewer extends Widget implements Printing.IPrintable {
   private _render(): void {
     this.context.urlResolver.getDownloadUrl(this.context.path)
       .then((url: string) => {
-        console.log(url)
-        this.stage_obj.loadFile(url).then(function (o: any) {
-          o.addRepresentation('cartoon')
+        console.log(this.context)
+        this.stage_obj.loadFile(url).then((o: any) => {
+          if (this.context.path.endsWith('.mol2')) {
+            o.addRepresentation('ball+stick')
+          } else {
+            o.addRepresentation('ribbon', { colorScheme: 'residueindex' })
+          }
           o.autoView()
         })
       })
