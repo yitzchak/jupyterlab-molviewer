@@ -23,6 +23,7 @@ const MOL_CLASS = 'jp-MolViewer';
 export class MolViewer extends Widget implements Printing.IPrintable {
   stage_container: any;
   stage_obj: any;
+  rendered: any = false;
 
   constructor(context: DocumentRegistry.Context) {
     super();
@@ -82,12 +83,44 @@ export class MolViewer extends Widget implements Printing.IPrintable {
   //   this.title.label = PathExt.basename(this.context.localPath);
   // }
 
+  private addElement (el: any): void {
+    Object.assign(el.style, {
+      position: 'absolute',
+      zIndex: 10
+    })
+    this.stage_obj.viewer.container.appendChild(el)
+  }
+
+  private createElement (name: any, properties: any, style: any): void {
+    var el = document.createElement(name)
+    Object.assign(el, properties)
+    Object.assign(el.style, style)
+    return el
+  }
+
   private _render(): void {
+    if (!this.rendered) {
+    this.rendered = true;
     this.context.urlResolver.getDownloadUrl(this.context.path)
       .then((url: string) => {
-        console.log(this.context)
-        this.stage_obj.loadFile(url).then((o: any) => {
-          if (this.context.path.endsWith('.mol2')) {
+        this.stage_obj.loadFile(url)//, { asTrajectory: this.context.path.match(/\.(mmcif|pdb|pqr|ent|gro|sdf|sd|mol2|mmtf|)$/) && true })
+        .then((o: any) => {
+          if (o.structure.modelStore.count > 1) {
+            o.setSelection('/0')
+            var modelRange: any = this.createElement('input', {
+              type: 'range',
+              value: 0,
+              min: 0,
+              max: o.structure.modelStore.count - 1,
+              step: 1
+            }, { top: '12px', left: '12px' })
+            modelRange.oninput = function (e: any) {
+              o.setSelection('/' + e.target.value)
+            }
+            this.addElement(modelRange)
+          }
+
+          if (this.context.path.match(/\.(mol2|sdf?)$/)) {
             o.addRepresentation('ball+stick')
           } else {
             o.addRepresentation('ribbon', { colorScheme: 'residueindex' })
@@ -95,6 +128,7 @@ export class MolViewer extends Widget implements Printing.IPrintable {
           o.autoView()
         })
       })
+    }
   }
 
   private _ready = new PromiseDelegate<void>();

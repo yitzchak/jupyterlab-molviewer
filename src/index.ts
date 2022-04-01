@@ -30,6 +30,16 @@ const FILE_TYPES = [{
   name: 'pdb',
   mimeTypes: ['chemical/x-pdb'],
   extensions: ['.pdb', '.pqr', '.ent']
+}, {
+  displayName: 'MDL Molfile',
+  name: 'mol',
+  mimeTypes: ['chemical/x-mdl-molfile'],
+  extensions: ['.mol']
+}, {
+  displayName: 'Structure Data File',
+  name: 'sdf',
+  mimeTypes: ['chemical/x-mdl-sdfile'],
+  extensions: ['.sdf', '.sd']
 }]
 
 const FACTORY = 'Molecule Viewer';
