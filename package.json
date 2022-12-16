@@ -1,6 +1,6 @@
 {
   "name": "jupyterlab-molviewer",
-  "version": "0.2.10",
+  "version": "0.3.0",
   "description": "Molecule viewer for JupyterLab using ngl",
   "keywords": [
     "jupyter",
@@ -43,7 +43,7 @@
     "@lumino/coreutils": "^1.12.1",
     "@lumino/messaging": "^1.10.3",
     "@lumino/widgets": "^1.36.0",
-    "ngl": "https://github.com/yitzchak/ngl.git#fix-sdf"
+    "ngl": "2.0.2"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.5.1",
