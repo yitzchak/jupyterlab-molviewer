@@ -24,6 +24,7 @@ export class MolViewer extends Widget implements Printing.IPrintable {
   stage_container: any;
   stage_obj: any;
   rendered: any = false;
+  info: any;  
 
   constructor(context: DocumentRegistry.Context) {
     super();
@@ -98,6 +99,17 @@ export class MolViewer extends Widget implements Printing.IPrintable {
     return el
   }
 
+  private updateInfo (o: any, index: any) {
+    o.setSelection('/' + index)    
+    this.info.innerHTML = ''
+    if (o.structure.extraData.sdf && o.structure.extraData.sdf[index]) {
+      var data: any = o.structure.extraData.sdf[index]
+      for (const key in data) {
+        this.info.innerHTML += '<dt style="font-weight: bold;">' + key + '</dt><dd><div>' + data[key].join('</div><div>') + '</div></dd>'
+      }
+    }
+  }
+
   private _render(): void {
     if (!this.rendered) {
     this.rendered = true;
@@ -106,7 +118,6 @@ export class MolViewer extends Widget implements Printing.IPrintable {
         this.stage_obj.loadFile(url)//, { asTrajectory: this.context.path.match(/\.(mmcif|pdb|pqr|ent|gro|sdf|sd|mol2|mmtf|)$/) && true })
         .then((o: any) => {
           if (o.structure.modelStore.count > 1) {
-            o.setSelection('/0')
             var modelRange: any = this.createElement('input', {
               type: 'range',
               value: 0,
@@ -114,10 +125,13 @@ export class MolViewer extends Widget implements Printing.IPrintable {
               max: o.structure.modelStore.count - 1,
               step: 1
             }, { top: '12px', left: '12px' })
-            modelRange.oninput = function (e: any) {
-              o.setSelection('/' + e.target.value)
+            this.info = this.createElement('dl', {}, { top: '36px', left: '12px' })
+            modelRange.oninput = (e: any) => {
+              this.updateInfo(o, e.target.value)
             }
             this.addElement(modelRange)
+            this.addElement(this.info)
+            this.updateInfo(o, 0)  
           }
 
           if (this.context.path.match(/\.(mol2|sdf?)$/)) {
