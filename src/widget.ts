@@ -101,7 +101,7 @@ export class MolViewer extends Widget implements Printing.IPrintable {
 
   private updateInfo (o: any, index: any) {
     o.setSelection('/' + index)    
-    this.info.innerHTML = ''
+    this.info.innerHTML = '<dt style="font-weight: bold;">Title</dt><dd>' + o.structure.title + '</dd><dt style="font-weight: bold;">Index</dt><dd>' + index + '</dd>'
     if (o.structure.extraData.sdf && o.structure.extraData.sdf[index]) {
       var data: any = o.structure.extraData.sdf[index]
       for (const key in data) {
