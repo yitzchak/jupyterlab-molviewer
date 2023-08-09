@@ -38,7 +38,7 @@
   "dependencies": {
     "@jupyterlab/application": "^3.5.1",
     "@jupyterlab/apputils": "^3.5.1",
-    "@jupyterlab/coreutils": "^5.5.1",
+    "@jupyterlab/coreutils": "^6.0.4",
     "@jupyterlab/docregistry": "^3.5.1",
     "@lumino/coreutils": "^1.12.1",
     "@lumino/messaging": "^1.10.3",
