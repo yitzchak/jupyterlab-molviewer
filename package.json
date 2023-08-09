@@ -41,7 +41,7 @@
     "@jupyterlab/coreutils": "^5.5.1",
     "@jupyterlab/docregistry": "^3.5.1",
     "@lumino/coreutils": "^1.12.1",
-    "@lumino/messaging": "^1.10.3",
+    "@lumino/messaging": "^2.0.1",
     "@lumino/widgets": "^1.36.0",
     "ngl": "2.1.0"
   },
